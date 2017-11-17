@@ -1,0 +1,5 @@
+.DS_Store
+.travis.yml
+.idea/
+node_modules/
+vendor/
