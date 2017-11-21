@@ -89,7 +89,7 @@ if ( file_exists( $composer = PCE_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
 
 /*
 |--------------------------------------------------------------------------
-| Hook into the matrix
+| Hook into the pb matrix
 |--------------------------------------------------------------------------
 |
 |
@@ -97,7 +97,7 @@ if ( file_exists( $composer = PCE_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
 |
 */
 add_filter( 'pb_export_formats', function ( $formats ) {
-	$formats['exotic']['imscc'] = __( 'Common Cartridge (v1.1)', 'pressbooks-cc-export' );
+	$formats['exotic']['imscc11'] = __( 'Common Cartridge (v1.1)', 'pressbooks-cc-export' );
 
 	return $formats;
 } );
