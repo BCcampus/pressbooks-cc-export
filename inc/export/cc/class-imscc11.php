@@ -14,10 +14,10 @@
 
 namespace BCcampus\Export\CC;
 
-
-use \PressBooks;
-use Pressbooks\Modules\Export\Epub\Epub3;
+use \Pressbooks;
+use \Pressbooks\Modules\Export\Epub\Epub3;
 use \Pressbooks\Sanitize;
+use \Masterminds\HTML5;
 
 class Imscc11 extends Epub3 {
 
@@ -131,6 +131,59 @@ class Imscc11 extends Epub3 {
 		}
 
 		return parent::loadTemplate( $path, $vars );
+	}
+
+	/**
+	 * Nearly verbatim from class-epub201.php from pressbooks 4.4.0
+	 * Only Eliminated Mobi Hack
+	 * @copyright Pressbooks
+	 *
+	 * Pummel the HTML into IMSCC compatible dough.
+	 *
+	 * @param string $html
+	 * @param string $type front-matter, part, chapter, back-matter, ...
+	 * @param int $pos (optional) position of content, used when creating filenames like: chapter-001, chapter-002, ...
+	 *
+	 * @return string
+	 */
+	protected function kneadHtml( $html, $type, $pos = 0 ) {
+
+		$doc = new HTML5( [ 'disable_html_ns' => true ] ); // Disable default namespace for \DOMXPath compatibility
+		$dom = $doc->loadHTML( $html );
+
+		// Download images, change to relative paths
+		$dom = $this->scrapeAndKneadImages( $dom );
+
+		// Download audio files, change to relative paths
+		$dom = $this->scrapeAndKneadMedia( $dom );
+
+		// Deal with <a href="">, <a href=''>, and other mutations
+		$dom = $this->kneadHref( $dom, $type, $pos );
+
+		// Make sure empty tags (e.g. <b></b>) don't get turned into self-closing versions by adding an empty text node to them.
+		$xpath = new \DOMXPath( $dom );
+		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
+			foreach ( $nodes as $node ) {
+				/** @var \DOMElement $node */
+				$node->appendChild( new \DOMText( '' ) );
+			}
+		}
+
+		// Remove srcset attributes because responsive images aren't a thing in the EPUB world.
+		$srcsets = $xpath->query( '//img[@srcset]' );
+		foreach ( $srcsets as $srcset ) {
+			/** @var \DOMElement $srcset */
+			$srcset->removeAttribute( 'srcset' );
+		}
+
+		// If you are storing multi-byte characters in XML, then saving the XML using saveXML() will create problems.
+		// Ie. It will spit out the characters converted in encoded format. Instead do the following:
+		$html = $dom->saveXML( $dom->documentElement );
+
+		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
+		$html = \Pressbooks\Sanitize\strip_container_tags( $html );
+
+		return $html;
 	}
 
 	protected function zipImscc( $filename ) {
