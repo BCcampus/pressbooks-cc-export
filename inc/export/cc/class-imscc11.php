@@ -106,6 +106,7 @@ class Imscc11 extends Epub3 {
 
 	/**
 	 * Nearly verbatim from class-epub3.php in pressbooks v4.4.0
+	 * Only modified value of $replace path
 	 * @copyright Pressbooks
 	 *
 	 * Override load template function
@@ -135,7 +136,7 @@ class Imscc11 extends Epub3 {
 
 	/**
 	 * Nearly verbatim from class-epub201.php from pressbooks 4.4.0
-	 * Only Eliminated Mobi Hack
+	 * Only eliminated Mobi Hack
 	 * @copyright Pressbooks
 	 *
 	 * Pummel the HTML into IMSCC compatible dough.
@@ -186,8 +187,38 @@ class Imscc11 extends Epub3 {
 		return $html;
 	}
 
+	/**
+	 * Nearly verbatim from class-epub201.php in pressbooks 4.4.0
+	 * Removed mimetype file requirement
+	 * @copyright Pressbooks
+	 *
+	 * @param $filename
+	 *
+	 * @return bool
+	 */
 	protected function zipImscc( $filename ) {
-		// TODO: add functionality
+		$zip = new \PclZip( $filename );
+
+		$list = $zip->create( $this->tmpDir, PCLZIP_OPT_REMOVE_ALL_PATH );
+		if ( 0 === absint( $list ) ) {
+			return false;
+		}
+
+		$files = [];
+		foreach ( new \RecursiveIteratorIterator( new \RecursiveDirectoryIterator( $this->tmpDir ) ) as $file ) {
+			if ( ! $file->isFile() ) {
+				continue;
+			}
+
+			$files[] = $file->getPathname();
+		}
+
+		$list = $zip->add( $files, '', $this->tmpDir );
+		if ( 0 === absint( $list ) ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -221,16 +252,12 @@ class Imscc11 extends Epub3 {
 		}
 		$vars['meta'] = $metadata;
 
-		echo "<pre>";
-		print_r( get_defined_vars() );
-		echo "</pre>";
-		die();
-
 		// Put contents
 		file_put_contents(
 			$this->tmpDir . '/imsmanifest.xml',
 			$this->loadTemplate( $this->dir . '/templates/manifest.php', $vars )
 		);
+
 	}
 
 
