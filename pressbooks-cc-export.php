@@ -140,7 +140,7 @@ add_filter( 'pb_latest_export_filetypes', function ( $filetypes ) {
 add_action( 'wp_enqueue_scripts', function () {
 	// Load only on front page
 	if ( is_front_page() ) {
-		wp_enqueue_style( 'cc_icon_style', plugins_url( 'assets/styles/fp-icon-style.css', __FILE__ ) );
+		wp_enqueue_style( 'fp_icon_style', plugins_url( 'assets/styles/fp-icon-style.css', __FILE__ ) );
 	}
 
 	return;
@@ -159,7 +159,7 @@ add_action( 'wp_enqueue_scripts', function () {
 
 add_action( 'admin_enqueue_scripts', function ( $hook ) {
 	// Load only on export page
-	if ( $hook != 'toplevel_page_pb_export' ) {
+	if ( $hook !== 'toplevel_page_pb_export' ) {
 		return;
 	}
 	wp_enqueue_style( 'cc_icon_style', plugins_url( 'assets/styles/cc-icon-style.css', __FILE__ ) );
