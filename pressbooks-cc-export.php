@@ -111,9 +111,45 @@ add_filter( 'pb_active_export_modules', function ( $modules ) {
 
 } );
 
+
 /*
 |--------------------------------------------------------------------------
-| Add Common Cartridge icon to admin export page
+| Add imscc export format to the latest exports list on front page of a book
+|--------------------------------------------------------------------------
+|
+|
+|
+|
+*/
+add_filter( 'pb_latest_export_filetypes', function ( $filetypes ) {
+	$filetypes['imscc11'] = '.imscc';
+
+	return $filetypes;
+} );
+
+/*
+|--------------------------------------------------------------------------
+| Add imscc icon to front page of a book
+|--------------------------------------------------------------------------
+|
+|
+|
+|
+*/
+
+add_action( 'wp_enqueue_scripts', function () {
+	// Load only on front page
+	if ( is_front_page() ) {
+		wp_enqueue_style( 'cc_icon_style', plugins_url( 'assets/styles/fp-icon-style.css', __FILE__ ) );
+	}
+
+	return;
+}
+);
+
+/*
+|--------------------------------------------------------------------------
+| Add imscc icon to the admin PB export page
 |--------------------------------------------------------------------------
 |
 |
