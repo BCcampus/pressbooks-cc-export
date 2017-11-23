@@ -14,10 +14,10 @@
 
 namespace BCcampus\Export\CC;
 
-use \Pressbooks;
-use \Pressbooks\Modules\Export\Epub\Epub3;
-use \Pressbooks\Sanitize;
-use \Masterminds\HTML5;
+use Pressbooks;
+use Pressbooks\Modules\Export\Epub\Epub3;
+use Pressbooks\Sanitize;
+use Masterminds\HTML5;
 
 class Imscc11 extends Epub3 {
 
@@ -96,42 +96,13 @@ class Imscc11 extends Epub3 {
 	}
 
 	/**
-	 *
+	 * Common Cartridge doesn't seem to care about naming conventions for directories
+	 * keep OEBPS (same as EPUB) for easier class inheritance
 	 */
 	protected function createContainer() {
 		mkdir( $this->tmpDir . '/OEBPS' );
 		mkdir( $this->tmpDir . '/OEBPS/assets' );
 
-	}
-
-	/**
-	 * Nearly verbatim from class-epub3.php in pressbooks v4.4.0
-	 * Only modified value of $replace path
-	 * @copyright Pressbooks
-	 *
-	 * Override load template function
-	 * Switch path from /epub201 to / when possible.
-	 *
-	 * @param string $path
-	 * @param array $vars (optional)
-	 *
-	 * @return string
-	 * @throws \Exception
-	 */
-	protected function loadTemplate( $path, array $vars = [] ) {
-
-		$search  = '/templates/epub201/';
-		$replace = '/templates/';
-
-		$pos = strpos( $path, $search );
-		if ( false !== $pos ) {
-			$new_path = substr_replace( $path, $replace, $pos, strlen( $search ) );
-			if ( file_exists( $new_path ) ) {
-				$path = $new_path;
-			}
-		}
-
-		return parent::loadTemplate( $path, $vars );
 	}
 
 	/**
@@ -660,7 +631,8 @@ class Imscc11 extends Epub3 {
 	 * @return bool
 	 */
 	function validate() {
-		// TODO: Implement validate() method.
+		// TODO: implement a validation routine
+		return true;
 	}
 
 	/**
