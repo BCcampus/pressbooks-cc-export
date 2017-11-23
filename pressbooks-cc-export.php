@@ -67,7 +67,6 @@ add_action( 'init', function () {
 			echo '<div id="message" class="error fade"><p>' . __( 'CC Export requires Pressbooks 4.0.0 or greater.', 'pressbooks-cc-export' ) . '</p></div>';
 		} );
 	}
-
 } );
 
 
@@ -136,7 +135,6 @@ add_filter( 'pb_latest_export_filetypes', function ( $filetypes ) {
 |
 |
 */
-
 add_action( 'wp_enqueue_scripts', function () {
 	// Load only on front page
 	if ( is_front_page() ) {
@@ -144,8 +142,7 @@ add_action( 'wp_enqueue_scripts', function () {
 	}
 
 	return;
-}
-);
+} );
 
 /*
 |--------------------------------------------------------------------------
@@ -156,12 +153,10 @@ add_action( 'wp_enqueue_scripts', function () {
 |
 |
 */
-
 add_action( 'admin_enqueue_scripts', function ( $hook ) {
 	// Load only on export page
 	if ( $hook !== 'toplevel_page_pb_export' ) {
 		return;
 	}
 	wp_enqueue_style( 'cc_icon_style', plugins_url( 'assets/styles/cc-icon-style.css', __FILE__ ) );
-}
-);
+} );
