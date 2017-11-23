@@ -110,3 +110,22 @@ add_filter( 'pb_active_export_modules', function ( $modules ) {
 	return $modules;
 
 } );
+
+/*
+|--------------------------------------------------------------------------
+| Add Common Cartridge icon to admin export page
+|--------------------------------------------------------------------------
+|
+|
+|
+|
+*/
+
+add_action( 'admin_enqueue_scripts', function ( $hook ) {
+	// Load only on export page
+	if ( $hook != 'toplevel_page_pb_export' ) {
+		return;
+	}
+	wp_enqueue_style( 'cc_icon_style', plugins_url( 'assets/styles/cc-icon-style.css', __FILE__ ) );
+}
+);
