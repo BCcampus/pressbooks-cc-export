@@ -26,7 +26,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 					<lomimscc:string language="<?php echo $lang; ?>"><?php echo $meta['pb_title']; ?></lomimscc:string>
 				</lomimscc:title>
 				<lomimscc:description>
-					<lomimscc:string language="<?php echo $lang; ?>"><?php $meta['pb_about_50']; ?></lomimscc:string>
+					<lomimscc:string language="<?php echo $lang; ?>"><?php echo ( isset( $meta['pb_about_50'] ) ) ? $meta['pb_about_50'] : ''; ?></lomimscc:string>
 					<?php unset( $meta['pb_about_50'] ); ?>
 				</lomimscc:description>
 			</lomimscc:general>
