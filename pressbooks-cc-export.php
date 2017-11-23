@@ -3,7 +3,7 @@
  * Plugin Name:     Pressbooks Cc Export
  * Plugin URI:      https://github.com/bccampus/pressbooks-cc-export
  * Description:     Common Cartridge Export for Pressbooks
- * Author:          bdolor
+ * Author:          bdolor, aparedes
  * Author URI:      https://github.com/bdolor
  * Text Domain:     pressbooks-cc-export
  * Domain Path:     /languages
@@ -50,7 +50,7 @@ if ( ! defined( 'PB_PLUGIN_DIR' ) ) {
 |
 */
 add_action( 'init', function () {
-	$min_pb_compatibility_version = '4.0.0';
+	$min_pb_compatibility_version = '4.2.0';
 
 	if ( ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
 		add_action( 'admin_notices', function () {
@@ -64,7 +64,7 @@ add_action( 'init', function () {
 
 	} elseif ( ! version_compare( PB_PLUGIN_VERSION, $min_pb_compatibility_version, '>=' ) ) {
 		add_action( 'admin_notices', function () {
-			echo '<div id="message" class="error fade"><p>' . __( 'CC Export requires Pressbooks 4.0.0 or greater.', 'pressbooks-cc-export' ) . '</p></div>';
+			echo '<div id="message" class="error fade"><p>' . __( 'CC Export requires Pressbooks 4.2.0 or greater.', 'pressbooks-cc-export' ) . '</p></div>';
 		} );
 	}
 } );
