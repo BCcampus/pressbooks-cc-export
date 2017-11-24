@@ -265,7 +265,6 @@ class Imscc11 extends Epub3 {
 				$chapter_id             = $chapter['ID'];
 				$subclass               = Pressbooks\Taxonomy::getChapterType( $chapter_id );
 				$slug                   = $chapter['post_name'];
-				$title                  = ( get_post_meta( $chapter_id, 'pb_show_title', true ) ? $chapter['post_title'] : '' );
 				$content                = $this->kneadHtml( $chapter['post_content'], 'chapter', $j );
 				$append_chapter_content = $this->kneadHtml( apply_filters( 'pb_append_chapter_content', '', $chapter_id ), 'chapter', $j );
 				$short_title            = false; // Ie. running header title is not used in EPUB
@@ -664,6 +663,8 @@ class Imscc11 extends Epub3 {
 			'manifest'   => $this->manifest,
 			'stylesheet' => $this->stylesheet,
 			'lang'       => $this->lang,
+			'images'     => $this->fetchedImageCache,
+			'media'      => $this->fetchedMediaCache,
 		];
 
 		$vars['do_copyright_license'] = Sanitize\sanitize_xml_attribute(

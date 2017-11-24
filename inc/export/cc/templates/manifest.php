@@ -47,10 +47,20 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		</organization>
 	</organizations>
 	<resources>
+		<?php foreach ( $images as $url => $image_name ) {
+			echo '<resource identifier="R_' . $image_name . '" type="webcontent">' . "\n";
+			echo '<file href="OEBPS/assets/' . $image_name . '"/>' . "\n";
+			echo '</resource>' . "\n";
+		} ?>
+		<?php foreach ( $media as $url => $media_name ) {
+			echo '<resource identifier="R_' . $media_name . '" type="webcontent">' . "\n";
+			echo '<file href="OEBPS/assets/' . $media_name . '"/>' . "\n";
+			echo '</resource>' . "\n";
+		} ?>
 		<?php foreach ( $manifest as $key => $item ) {
 			echo '<resource identifier="R_' . $item['ID'] . '" type="webcontent" href="OEBPS/' . $item['filename'] . '">' . "\n";
 			echo '<file href="OEBPS/' . $item['filename'] . '"/>' . "\n";
 			echo '</resource>' . "\n";
-} ?>
+		} ?>
 	</resources>
 </manifest>
