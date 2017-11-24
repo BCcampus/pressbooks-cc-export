@@ -38,24 +38,17 @@ The Pressbooks github repository is updated frequently. [Stay up to date](https:
 1. Upload `pressbooks-cc-export` to the `/wp-content/plugins/` directory
 2. Activate the plugin at the network level, through the 'Plugins' menu in WordPress
 
-= What is an OER? =
+= What is a Common Cartridge? =
 
-Open Textbooks are open educational resources (OER); they are instructional resources created and shared in ways so that more people have access to them.
-That’s a different model than traditionally-copyrighted materials.
-OER are defined as “teaching, learning, and research resources that reside in the public domain or have been released under an intellectual property license that permits their free use and re-purposing by others” (Hewlett Foundation).
+It is a set of open standards developed by an industry consortium intended to enable interoperability between learning platforms (LMS).
 
-= How do you make a Textbook 'Open'? =
+== Screenshots ==
 
-When creating Open Textbooks and other OERs, we feel it is best to adhere to the five Rs of open education as defined by David Wiley, which are:
-
-1. Retain – i.e. no digital rights management restrictions (DRM), the content is yours to keep, whether you’re the author, instructor or student.
-2. Reuse – you are free to use materials in a wide variety of ways without expressly asking permission of the copyright holder.
-3. Revise – as an educator, you can adapt, adjust, or modify the content to suit specific purposes and make the materials more relevant to your students. This means making it available in a number of different formats and including source files, where possible.
-4. Remix – you or your students can pull together a number of different resources to create something new.
-5. Redistribute – you are free to share with others, so they can reuse, remix, improve upon, correct, review or otherwise enjoy your work.
+1. Adds Creative Commons v1.1 export option to Pressbooks
 
 == Changelog ==
 
-= 1.0.0 =
-* initial commit
+= 0.1.0-RC1 =
+* Release Candidate, compatible with Pressbooks v4.2, or greater
+
 

@@ -633,7 +633,13 @@ class Imscc11 extends Epub3 {
 	 * @return bool
 	 */
 	function validate() {
-		// TODO: implement a validation routine
+		if ( ! simplexml_load_file( $this->tmpDir . '/imsmanifest.xml' ) ) {
+
+			$this->logError( 'IMS Manifest is not well formed XML.' );
+
+			return false;
+		}
+
 		return true;
 	}
 
