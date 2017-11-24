@@ -46,6 +46,8 @@ It is a set of open standards developed by an industry consortium intended to en
 
 1. Adds Creative Commons v1.1 export option to Pressbooks
 
+2. Theme independent icon addition to downloads area on homepage.
+
 == Changelog ==
 
 = 0.1.0-RC1 =
