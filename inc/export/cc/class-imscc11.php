@@ -603,7 +603,7 @@ class Imscc11 extends Epub3 {
 	protected function zipImscc( $filename ) {
 		$zip = new \PclZip( $filename );
 
-		$list = $zip->create( $this->tmpDir, PCLZIP_OPT_NO_COMPRESSION, PCLZIP_OPT_REMOVE_ALL_PATH );
+		$list = $zip->create( $this->tmpDir . '/imsmanifest.xml', PCLZIP_OPT_NO_COMPRESSION, PCLZIP_OPT_REMOVE_ALL_PATH );
 		if ( 0 === absint( $list ) ) {
 			return false;
 		}
@@ -613,7 +613,9 @@ class Imscc11 extends Epub3 {
 			if ( ! $file->isFile() ) {
 				continue;
 			}
-
+			if ( 'imsmanifest.xml' === $file->getFilename() ) {
+				continue;
+			}
 			$files[] = $file->getPathname();
 		}
 
