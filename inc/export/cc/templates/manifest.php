@@ -6,11 +6,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 ?>
 <manifest identifier="cctd0001"
-		  xmlns="http://www.imsglobal.org/xsd/imsccv1p1/imscp_v1p1"
-		  xmlns:lom="http://ltsc.ieee.org/xsd/imsccv1p1/LOM/resource"
-		  xmlns:lomimscc="http://ltsc.ieee.org/xsd/imsccv1p1/LOM/manifest"
-		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		  xsi:schemaLocation="
+          xmlns="http://www.imsglobal.org/xsd/imsccv1p1/imscp_v1p1"
+          xmlns:lom="http://ltsc.ieee.org/xsd/imsccv1p1/LOM/resource"
+          xmlns:lomimscc="http://ltsc.ieee.org/xsd/imsccv1p1/LOM/manifest"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="
   http://www.imsglobal.org/xsd/imsccv1p1/imscp_v1p1 http://www.imsglobal.org/profile/cc/ccv1p1/ccv1p1_imscp_v1p1_v1p0.xsd
   http://ltsc.ieee.org/xsd/imsccv1p1/LOM/resource http://www.imsglobal.org/profile/cc/ccv1p1/LOM/ccv1p1_lomresource_v1p0.xsd
   http://ltsc.ieee.org/xsd/imsccv1p1/LOM/manifest http://www.imsglobal.org/profile/cc/ccv1p1/LOM/ccv1p1_lommanifest_v1p0.xsd">
@@ -23,7 +23,8 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 					<lomimscc:string language="<?php echo $lang; ?>"><?php echo $meta['pb_title']; ?></lomimscc:string>
 				</lomimscc:title>
 				<lomimscc:description>
-					<lomimscc:string language="<?php echo $lang; ?>"><?php echo ( isset( $meta['pb_about_50'] ) ) ? $meta['pb_about_50'] : ''; ?></lomimscc:string>
+					<lomimscc:string
+						language="<?php echo $lang; ?>"><?php echo ( isset( $meta['pb_about_50'] ) ) ? $meta['pb_about_50'] : ''; ?></lomimscc:string>
 					<?php unset( $meta['pb_about_50'] ); ?>
 				</lomimscc:description>
 			</lomimscc:general>
@@ -35,12 +36,12 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 				<item identifier="book">
 					<title><?php echo $meta['pb_title']; ?></title>
 					<?php unset( $meta['pb_title'] ); ?>
-					<?php echo "\n";?>
+					<?php echo "\n"; ?>
 					<?php foreach ( $manifest as $key => $item ) {
 						echo '<item identifier="I_' . $key . '" identifierref="R_' . $item['ID'] . '">' . "\n";
 						echo '<title>' . $item['post_title'] . '</title>' . "\n";
 						echo '</item>' . "\n";
-}
+					}
 					?>
 				</item>
 			</item>
