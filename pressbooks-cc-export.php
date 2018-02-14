@@ -3,7 +3,7 @@
  * Plugin Name:     Pressbooks Cc Export
  * Plugin URI:      https://github.com/bccampus/pressbooks-cc-export
  * Description:     Common Cartridge Export for Pressbooks
- * Author:          bdolor, aparedes
+ * Author:          Brad Payne
  * Author URI:      https://github.com/bdolor
  * Text Domain:     pressbooks-cc-export
  * Domain Path:     /languages

@@ -2,7 +2,7 @@
 /**
  * Project: pressbooks-cc-export
  * Project Sponsor: BCcampus <https://bccampus.ca>
- * Copyright 2012-2017 Brad Payne <https://bradpayne.ca>
+ * Copyright 2012-2017 Brad Payne
  * Date: 2017-11-20
  * Licensed under GPLv3, or any later version
  *
@@ -83,6 +83,8 @@ class Imscc11 extends Epub3 {
 	/**
 	 * @param $book_contents
 	 * @param $metadata
+	 *
+	 * @throws \Exception
 	 */
 	protected function createWebContent( $book_contents, $metadata ) {
 
@@ -112,6 +114,8 @@ class Imscc11 extends Epub3 {
 	 *
 	 * @param array $book_contents
 	 * @param array $metadata
+	 *
+	 * @throws \Exception
 	 */
 	protected function createFrontMatter( $book_contents, $metadata ) {
 		$front_matter_printf = '<div class="front-matter %s" id="%s">';
@@ -214,6 +218,8 @@ class Imscc11 extends Epub3 {
 	 *
 	 * @param array $book_contents
 	 * @param array $metadata
+	 *
+	 * @throws \Exception
 	 */
 	protected function createPartsAndChapters( $book_contents, $metadata ) {
 
@@ -452,6 +458,8 @@ class Imscc11 extends Epub3 {
 	 *
 	 * @param array $book_contents
 	 * @param array $metadata
+	 *
+	 * @throws \Exception
 	 */
 	protected function createBackMatter( $book_contents, $metadata ) {
 
