@@ -154,7 +154,7 @@ class Imscc11 extends Epub3 {
 			$append_front_matter_content = $this->kneadHtml( apply_filters( 'pb_append_front_matter_content', '', $front_matter_id ), 'front-matter', $i );
 			$short_title                 = trim( get_post_meta( $front_matter_id, 'pb_short_title', true ) );
 			$subtitle                    = trim( get_post_meta( $front_matter_id, 'pb_subtitle', true ) );
-			$author                      = trim( get_post_meta( $front_matter_id, 'pb_section_author', true ) );
+			$author                      = trim( get_post_meta( $front_matter_id, 'pb_authors', true ) );
 
 			if ( Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
 				$sections = Pressbooks\Book::getSubsections( $front_matter_id );
@@ -275,7 +275,7 @@ class Imscc11 extends Epub3 {
 				$append_chapter_content = $this->kneadHtml( apply_filters( 'pb_append_chapter_content', '', $chapter_id ), 'chapter', $j );
 				$short_title            = false; // Ie. running header title is not used in EPUB
 				$subtitle               = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
-				$author                 = trim( get_post_meta( $chapter_id, 'pb_section_author', true ) );
+				$author                 = trim( get_post_meta( $chapter_id, 'pb_authors', true ) );
 
 				if ( Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
 					$sections = Pressbooks\Book::getSubsections( $chapter_id );
