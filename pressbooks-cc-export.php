@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name:     Pressbooks Cc Export
+ * Plugin Name:     CC Export for Pressbooks
  * Plugin URI:      https://github.com/bccampus/pressbooks-cc-export
  * Description:     Common Cartridge Export for Pressbooks
- * Author:          bdolor, aparedes
+ * Author:          Brad Payne
  * Author URI:      https://github.com/bdolor
  * Text Domain:     pressbooks-cc-export
  * Domain Path:     /languages
- * Version:         0.1.0
+ * Version:         0.2.0
  * License:         GPL-3.0+
  * Tags: pressbooks, OER, publishing, common cartridge, imscc
  * Network: True
@@ -50,21 +50,23 @@ if ( ! defined( 'PB_PLUGIN_DIR' ) ) {
 |
 */
 add_action( 'init', function () {
-	$min_pb_compatibility_version = '4.2.0';
+	$min_pb_compatibility_version = '5.0.0-beta';
 
 	if ( ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
 		add_action( 'admin_notices', function () {
 			echo '<div id="message" class="error fade"><p>' . __( 'CC Export cannot find a Pressbooks install.', 'pressbooks-cc-export' ) . '</p></div>';
 		} );
 
-	} elseif ( ! pb_meets_minimum_requirements() ) { // This PB function checks for both multisite, PHP and WP minimum versions.
+	}
+	if ( ! pb_meets_minimum_requirements() ) { // This PB function checks for both multisite, PHP and WP minimum versions.
 		add_action( 'admin_notices', function () {
 			echo '<div id="message" class="error fade"><p>' . __( 'Your PHP version may not be supported by PressBooks.', 'pressbooks-cc-export' ) . '</p></div>';
 		} );
 
-	} elseif ( ! version_compare( PB_PLUGIN_VERSION, $min_pb_compatibility_version, '>=' ) ) {
+	}
+	if ( ! version_compare( PB_PLUGIN_VERSION, $min_pb_compatibility_version, '>=' ) ) {
 		add_action( 'admin_notices', function () {
-			echo '<div id="message" class="error fade"><p>' . __( 'CC Export requires Pressbooks 4.2.0 or greater.', 'pressbooks-cc-export' ) . '</p></div>';
+			echo '<div id="message" class="error fade"><p>' . __( 'CC Export requires Pressbooks 5.0.0 or greater.', 'pressbooks-cc-export' ) . '</p></div>';
 		} );
 	}
 } );

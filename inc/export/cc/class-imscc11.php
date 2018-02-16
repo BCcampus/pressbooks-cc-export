@@ -2,7 +2,7 @@
 /**
  * Project: pressbooks-cc-export
  * Project Sponsor: BCcampus <https://bccampus.ca>
- * Copyright 2012-2017 Brad Payne <https://bradpayne.ca>
+ * Copyright 2012-2017 Brad Payne
  * Date: 2017-11-20
  * Licensed under GPLv3, or any later version
  *
@@ -83,6 +83,8 @@ class Imscc11 extends Epub3 {
 	/**
 	 * @param $book_contents
 	 * @param $metadata
+	 *
+	 * @throws \Exception
 	 */
 	protected function createWebContent( $book_contents, $metadata ) {
 
@@ -112,6 +114,8 @@ class Imscc11 extends Epub3 {
 	 *
 	 * @param array $book_contents
 	 * @param array $metadata
+	 *
+	 * @throws \Exception
 	 */
 	protected function createFrontMatter( $book_contents, $metadata ) {
 		$front_matter_printf = '<div class="front-matter %s" id="%s">';
@@ -135,7 +139,7 @@ class Imscc11 extends Epub3 {
 			}
 
 			$front_matter_id = $front_matter['ID'];
-			$subclass        = Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
+			$subclass        = $this->taxonomy->getFrontMatterType( $front_matter_id );
 
 			if ( 'dedication' === $subclass || 'epigraph' === $subclass || 'title-page' === $subclass || 'before-title' === $subclass ) {
 				continue; // Skip
@@ -214,6 +218,8 @@ class Imscc11 extends Epub3 {
 	 *
 	 * @param array $book_contents
 	 * @param array $metadata
+	 *
+	 * @throws \Exception
 	 */
 	protected function createPartsAndChapters( $book_contents, $metadata ) {
 
@@ -263,7 +269,7 @@ class Imscc11 extends Epub3 {
 
 				$chapter_printf_changed = '';
 				$chapter_id             = $chapter['ID'];
-				$subclass               = Pressbooks\Taxonomy::getChapterType( $chapter_id );
+				$subclass               = $this->taxonomy->getChapterType( $chapter_id );
 				$slug                   = $chapter['post_name'];
 				$content                = $this->kneadHtml( $chapter['post_content'], 'chapter', $j );
 				$append_chapter_content = $this->kneadHtml( apply_filters( 'pb_append_chapter_content', '', $chapter_id ), 'chapter', $j );
@@ -452,6 +458,8 @@ class Imscc11 extends Epub3 {
 	 *
 	 * @param array $book_contents
 	 * @param array $metadata
+	 *
+	 * @throws \Exception
 	 */
 	protected function createBackMatter( $book_contents, $metadata ) {
 
@@ -476,7 +484,7 @@ class Imscc11 extends Epub3 {
 			}
 
 			$back_matter_id             = $back_matter['ID'];
-			$subclass                   = Pressbooks\Taxonomy::getBackMatterType( $back_matter_id );
+			$subclass                   = $this->taxonomy->getBackMatterType( $back_matter_id );
 			$slug                       = $back_matter['post_name'];
 			$content                    = $this->kneadHtml( $back_matter['post_content'], 'back-matter', $i );
 			$append_back_matter_content = $this->kneadHtml( apply_filters( 'pb_append_back_matter_content', '', $back_matter_id ), 'back-matter', $i );
