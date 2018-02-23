@@ -57,17 +57,26 @@ add_action( 'init', function () {
 			echo '<div id="message" class="error fade"><p>' . __( 'CC Export cannot find a Pressbooks install.', 'pressbooks-cc-export' ) . '</p></div>';
 		} );
 
+		return;
 	}
-	if ( ! pb_meets_minimum_requirements() ) { // This PB function checks for both multisite, PHP and WP minimum versions.
-		add_action( 'admin_notices', function () {
-			echo '<div id="message" class="error fade"><p>' . __( 'Your PHP version may not be supported by PressBooks.', 'pressbooks-cc-export' ) . '</p></div>';
-		} );
 
+	if ( function_exists( 'pb_meets_minimum_requirements' ) ) {
+		if ( ! pb_meets_minimum_requirements() ) {
+			// This PB function checks for both multisite, PHP and WP minimum versions.
+			add_action( 'admin_notices', function () {
+				echo '<div id="message" class="error fade"><p>' . __( 'Your PHP version may not be supported by PressBooks.', 'pressbooks-cc-export' ) . '</p></div>';
+			} );
+
+			return;
+		}
 	}
+	
 	if ( ! version_compare( PB_PLUGIN_VERSION, $min_pb_compatibility_version, '>=' ) ) {
 		add_action( 'admin_notices', function () {
-			echo '<div id="message" class="error fade"><p>' . __( 'CC Export requires Pressbooks 5.0.0 or greater.', 'pressbooks-cc-export' ) . '</p></div>';
+			echo '<div id="message" class="error fade"><p>' . __( 'CC Export for Pressbooks requires Pressbooks 5.0.0 or greater.', 'pressbooks-cc-export' ) . '</p></div>';
 		} );
+
+		return;
 	}
 } );
 
