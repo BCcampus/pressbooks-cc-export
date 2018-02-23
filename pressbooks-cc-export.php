@@ -128,6 +128,15 @@ add_filter( 'pb_latest_export_filetypes', function ( $filetypes ) {
 	return $filetypes;
 } );
 
+add_filter( 'pb_export_filetype_names', function ( $array ) {
+
+	if ( ! isset( $array['imscc11'] ) ) {
+		$array['imscc11'] = __( 'Common Cartridge', 'pressbooks-cc-export' );
+	}
+
+	return $array;
+} );
+
 /*
 |--------------------------------------------------------------------------
 | Add imscc icon to front page of a book
