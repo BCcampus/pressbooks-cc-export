@@ -7,7 +7,7 @@
  * Author URI:      https://github.com/bdolor
  * Text Domain:     pressbooks-cc-export
  * Domain Path:     /languages
- * Version:         0.2.0
+ * Version:         0.2.0-rc.1
  * License:         GPL-3.0+
  * Tags: pressbooks, OER, publishing, common cartridge, imscc
  * Network: True
@@ -50,7 +50,7 @@ if ( ! defined( 'PB_PLUGIN_DIR' ) ) {
 |
 */
 add_action( 'init', function () {
-	$min_pb_compatibility_version = '5.0.0-beta';
+	$min_pb_compatibility_version = '5.0.0-rc.1';
 
 	if ( ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
 		add_action( 'admin_notices', function () {
