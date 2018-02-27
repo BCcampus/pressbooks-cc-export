@@ -2,7 +2,7 @@
   "name": "bccampus/pressbooks-cc-export",
   "description": "Common Cartridge Export file for Pressbooks",
   "type": "wordpress-plugin",
-  "version": "0.2.0-rc.1",
+  "version": "0.2.0",
   "homepage": "https://github.com/bccampus/pressbooks-cc-export",
   "license": "GPL-3.0+",
   "authors": [
