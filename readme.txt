@@ -3,7 +3,7 @@ Contributors: bdolor, aparedes
 Tags: pressbooks, export, common cartridge
 Requires at least: 4.9.4
 Tested up to: 4.9.4
-Stable tag: 0.2.0
+Stable tag: 0.2.1
 Requires PHP: 7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -50,11 +50,15 @@ It is a set of open standards developed by an industry consortium intended to en
 
 == Changelog ==
 
-= 0.2.0 02/27/2018 =
+= 0.2.1 2018/03/13 =
+* declaration of pb compatibility
+* coding standards
+
+= 0.2.0 2018/02/27 =
 * compatibility with PB5
 * plugin name change
 
-= 0.2.0-rc.1 02/23/2018 =
+= 0.2.0-rc.1 2018/02/23 =
 * Release Candidate, compatibility with PB5
 
 = 0.1.0-RC1 =

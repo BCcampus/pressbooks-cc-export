@@ -15,7 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<meta name="IMSCC-UUID" content="<?php echo $isbn; ?>" />
 
 	<?php
-	if ( ! empty( $stylesheet ) ) :  ?><link rel="stylesheet" href="<?php echo $stylesheet; ?>" type="text/css" /><?php endif; ?>
+	if ( ! empty( $stylesheet ) ) : ?>
+		<link rel="stylesheet" href="<?php echo $stylesheet; ?>" type="text/css"/>
+	<?php endif; ?>
 
 </head>
 <body>

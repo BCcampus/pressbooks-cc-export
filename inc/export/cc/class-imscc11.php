@@ -363,12 +363,12 @@ class Imscc11 extends Epub3 {
 
 				// Insert into correct pos
 				$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + [
-						$file_id => [
-							'ID'         => $part['ID'],
-							'post_title' => $part['post_title'],
-							'filename'   => $filename,
-						],
-					] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
+					$file_id => [
+						'ID'         => $part['ID'],
+						'post_title' => $part['post_title'],
+						'filename'   => $filename,
+					],
+				] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
 				++ $i;
 				if ( 'invisible' !== $invisibility ) {
@@ -396,12 +396,12 @@ class Imscc11 extends Epub3 {
 
 					// Insert into correct pos
 					$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + [
-							$file_id => [
-								'ID'         => $part['ID'],
-								'post_title' => $part['post_title'],
-								'filename'   => $filename,
-							],
-						] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
+						$file_id => [
+							'ID'         => $part['ID'],
+							'post_title' => $part['post_title'],
+							'filename'   => $filename,
+						],
+					] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
 					++ $i;
 					if ( 'invisible' !== $invisibility ) {
@@ -429,12 +429,12 @@ class Imscc11 extends Epub3 {
 
 						// Insert into correct pos
 						$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + [
-								$file_id => [
-									'ID'         => $part['ID'],
-									'post_title' => $part['post_title'],
-									'filename'   => $filename,
-								],
-							] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
+							$file_id => [
+								'ID'         => $part['ID'],
+								'post_title' => $part['post_title'],
+								'filename'   => $filename,
+							],
+						] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
 						++ $i;
 						if ( 'invisible' !== $invisibility ) {
@@ -560,7 +560,11 @@ class Imscc11 extends Epub3 {
 	 */
 	protected function kneadHtml( $html, $type, $pos = 0 ) {
 
-		$doc = new HTML5( [ 'disable_html_ns' => true ] ); // Disable default namespace for \DOMXPath compatibility
+		$doc = new HTML5(
+			[
+				'disable_html_ns' => true,
+			]
+		); // Disable default namespace for \DOMXPath compatibility
 		$dom = $doc->loadHTML( $html );
 
 		// Download images, change to relative paths
