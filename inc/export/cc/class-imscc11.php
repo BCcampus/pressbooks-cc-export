@@ -2,7 +2,7 @@
 /**
  * Project: pressbooks-cc-export
  * Project Sponsor: BCcampus <https://bccampus.ca>
- * Copyright 2012-2017 Brad Payne <https://bradpayne.ca>
+ * Copyright 2012-2017 Brad Payne
  * Date: 2017-11-20
  * Licensed under GPLv3, or any later version
  *
@@ -83,6 +83,8 @@ class Imscc11 extends Epub3 {
 	/**
 	 * @param $book_contents
 	 * @param $metadata
+	 *
+	 * @throws \Exception
 	 */
 	protected function createWebContent( $book_contents, $metadata ) {
 
@@ -112,6 +114,8 @@ class Imscc11 extends Epub3 {
 	 *
 	 * @param array $book_contents
 	 * @param array $metadata
+	 *
+	 * @throws \Exception
 	 */
 	protected function createFrontMatter( $book_contents, $metadata ) {
 		$front_matter_printf = '<div class="front-matter %s" id="%s">';
@@ -135,7 +139,7 @@ class Imscc11 extends Epub3 {
 			}
 
 			$front_matter_id = $front_matter['ID'];
-			$subclass        = Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
+			$subclass        = $this->taxonomy->getFrontMatterType( $front_matter_id );
 
 			if ( 'dedication' === $subclass || 'epigraph' === $subclass || 'title-page' === $subclass || 'before-title' === $subclass ) {
 				continue; // Skip
@@ -150,7 +154,7 @@ class Imscc11 extends Epub3 {
 			$append_front_matter_content = $this->kneadHtml( apply_filters( 'pb_append_front_matter_content', '', $front_matter_id ), 'front-matter', $i );
 			$short_title                 = trim( get_post_meta( $front_matter_id, 'pb_short_title', true ) );
 			$subtitle                    = trim( get_post_meta( $front_matter_id, 'pb_subtitle', true ) );
-			$author                      = trim( get_post_meta( $front_matter_id, 'pb_section_author', true ) );
+			$author                      = trim( get_post_meta( $front_matter_id, 'pb_authors', true ) );
 
 			if ( Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
 				$sections = Pressbooks\Book::getSubsections( $front_matter_id );
@@ -214,6 +218,8 @@ class Imscc11 extends Epub3 {
 	 *
 	 * @param array $book_contents
 	 * @param array $metadata
+	 *
+	 * @throws \Exception
 	 */
 	protected function createPartsAndChapters( $book_contents, $metadata ) {
 
@@ -263,13 +269,13 @@ class Imscc11 extends Epub3 {
 
 				$chapter_printf_changed = '';
 				$chapter_id             = $chapter['ID'];
-				$subclass               = Pressbooks\Taxonomy::getChapterType( $chapter_id );
+				$subclass               = $this->taxonomy->getChapterType( $chapter_id );
 				$slug                   = $chapter['post_name'];
 				$content                = $this->kneadHtml( $chapter['post_content'], 'chapter', $j );
 				$append_chapter_content = $this->kneadHtml( apply_filters( 'pb_append_chapter_content', '', $chapter_id ), 'chapter', $j );
 				$short_title            = false; // Ie. running header title is not used in EPUB
 				$subtitle               = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
-				$author                 = trim( get_post_meta( $chapter_id, 'pb_section_author', true ) );
+				$author                 = trim( get_post_meta( $chapter_id, 'pb_authors', true ) );
 
 				if ( Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
 					$sections = Pressbooks\Book::getSubsections( $chapter_id );
@@ -357,12 +363,12 @@ class Imscc11 extends Epub3 {
 
 				// Insert into correct pos
 				$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + [
-						$file_id => [
-							'ID'         => $part['ID'],
-							'post_title' => $part['post_title'],
-							'filename'   => $filename,
-						],
-					] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
+					$file_id => [
+						'ID'         => $part['ID'],
+						'post_title' => $part['post_title'],
+						'filename'   => $filename,
+					],
+				] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
 				++ $i;
 				if ( 'invisible' !== $invisibility ) {
@@ -390,12 +396,12 @@ class Imscc11 extends Epub3 {
 
 					// Insert into correct pos
 					$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + [
-							$file_id => [
-								'ID'         => $part['ID'],
-								'post_title' => $part['post_title'],
-								'filename'   => $filename,
-							],
-						] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
+						$file_id => [
+							'ID'         => $part['ID'],
+							'post_title' => $part['post_title'],
+							'filename'   => $filename,
+						],
+					] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
 					++ $i;
 					if ( 'invisible' !== $invisibility ) {
@@ -423,12 +429,12 @@ class Imscc11 extends Epub3 {
 
 						// Insert into correct pos
 						$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + [
-								$file_id => [
-									'ID'         => $part['ID'],
-									'post_title' => $part['post_title'],
-									'filename'   => $filename,
-								],
-							] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
+							$file_id => [
+								'ID'         => $part['ID'],
+								'post_title' => $part['post_title'],
+								'filename'   => $filename,
+							],
+						] + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
 						++ $i;
 						if ( 'invisible' !== $invisibility ) {
@@ -452,6 +458,8 @@ class Imscc11 extends Epub3 {
 	 *
 	 * @param array $book_contents
 	 * @param array $metadata
+	 *
+	 * @throws \Exception
 	 */
 	protected function createBackMatter( $book_contents, $metadata ) {
 
@@ -476,7 +484,7 @@ class Imscc11 extends Epub3 {
 			}
 
 			$back_matter_id             = $back_matter['ID'];
-			$subclass                   = Pressbooks\Taxonomy::getBackMatterType( $back_matter_id );
+			$subclass                   = $this->taxonomy->getBackMatterType( $back_matter_id );
 			$slug                       = $back_matter['post_name'];
 			$content                    = $this->kneadHtml( $back_matter['post_content'], 'back-matter', $i );
 			$append_back_matter_content = $this->kneadHtml( apply_filters( 'pb_append_back_matter_content', '', $back_matter_id ), 'back-matter', $i );
@@ -552,7 +560,11 @@ class Imscc11 extends Epub3 {
 	 */
 	protected function kneadHtml( $html, $type, $pos = 0 ) {
 
-		$doc = new HTML5( [ 'disable_html_ns' => true ] ); // Disable default namespace for \DOMXPath compatibility
+		$doc = new HTML5(
+			[
+				'disable_html_ns' => true,
+			]
+		); // Disable default namespace for \DOMXPath compatibility
 		$dom = $doc->loadHTML( $html );
 
 		// Download images, change to relative paths
