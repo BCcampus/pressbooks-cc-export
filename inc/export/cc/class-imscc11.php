@@ -239,7 +239,10 @@ class Imscc11 extends Epub3 {
 		];
 
 		// Parts, Chapters
-		$i = $j = $c = $p = 1;
+		$i = 1;
+		$j = 1;
+		$c = 1;
+		$p = 1;
 		foreach ( $book_contents['part'] as $part ) {
 
 			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) ? 'invisible' : '';
