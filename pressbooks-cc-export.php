@@ -7,19 +7,18 @@
  * Author URI:      https://github.com/bdolor
  * Text Domain:     pressbooks-cc-export
  * Domain Path:     /languages
- * Version:         0.2.2
+ * Version:         0.2.3
  * License:         GPL-3.0+
  * Tags: pressbooks, OER, publishing, common cartridge, imscc
  * Network: True
  * Tags: pressbooks, OER, publishing, textbooks
- * Pressbooks tested up to: 5.3.3
+ * Pressbooks tested up to: 5.4.0
  *
  * @package         Pressbooks_Cc_Export
  */
 
-
 if ( ! defined( 'ABSPATH' ) ) {
-	return;
+	exit;
 }
 
 
@@ -55,7 +54,7 @@ add_action(
 	'init', function () {
 		$min_pb_compatibility_version = '5.0.0';
 
-		if ( ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
+		if ( ! include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
 			add_action(
 				'admin_notices', function () {
 					echo '<div id="message" class="error fade"><p>' . __( 'CC Export cannot find a Pressbooks install.', 'pressbooks-cc-export' ) . '</p></div>';
@@ -103,7 +102,8 @@ add_action(
 require PCE_PLUGIN_DIR . 'autoloader.php';
 
 // Load Composer Dependencies
-if ( file_exists( $composer = PCE_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
+$composer = PCE_PLUGIN_DIR . 'vendor/autoload.php';
+if ( file_exists( $composer ) ) {
 	require_once( $composer );
 }
 
@@ -126,7 +126,7 @@ add_filter(
 
 add_filter(
 	'pb_active_export_modules', function ( $modules ) {
-		if ( isset( $_POST['export_formats']['imscc11'] ) ) {
+		if ( isset( $_POST['export_formats']['imscc11'] ) ) { // @codingStandardsIgnoreLine
 			$modules[] = '\BCcampus\Export\CC\Imscc11';
 		}
 
