@@ -14,10 +14,10 @@
 
 namespace BCcampus\Export\CC;
 
+use Masterminds\HTML5;
 use Pressbooks;
 use Pressbooks\Modules\Export\Epub\Epub3;
 use Pressbooks\Sanitize;
-use Masterminds\HTML5;
 
 class Imscc11 extends Epub3 {
 
@@ -118,7 +118,7 @@ class Imscc11 extends Epub3 {
 	 * @throws \Exception
 	 */
 	protected function createFrontMatter( $book_contents, $metadata ) {
-		$front_matter_printf = '<div class="front-matter %s" id="%s">';
+		$front_matter_printf  = '<div class="front-matter %s" id="%s">';
 		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s';
 		$front_matter_printf .= '</div>';
 
@@ -181,8 +181,8 @@ class Imscc11 extends Epub3 {
 				$append_front_matter_content .= $this->kneadHtml( $this->tidy( $section_license ), 'front-matter', $i );
 			}
 
-			$vars['post_title']   = $front_matter['post_title'];
-			$vars['post_content'] = sprintf(
+			$vars['post_title']                     = $front_matter['post_title'];
+			$vars['post_content']                   = sprintf(
 				$front_matter_printf,
 				$subclass,
 				$slug,
@@ -225,7 +225,7 @@ class Imscc11 extends Epub3 {
 
 		$part_printf = '<div class="part %s" id="%s">%s</div>';
 
-		$chapter_printf = '<div class="chapter %s" id="%s">';
+		$chapter_printf  = '<div class="chapter %s" id="%s">';
 		$chapter_printf .= '<div class="ugc chapter-ugc">%s</div>%s';
 		$chapter_printf .= '</div>';
 
@@ -311,9 +311,9 @@ class Imscc11 extends Epub3 {
 					$append_chapter_content .= $this->kneadHtml( $this->tidy( $section_license ), 'chapter', $j );
 				}
 
-				$n                    = ( 'numberless' === $subclass ) ? '' : $c;
-				$vars['post_title']   = $chapter['post_title'];
-				$vars['post_content'] = sprintf(
+				$n                                 = ( 'numberless' === $subclass ) ? '' : $c;
+				$vars['post_title']                = $chapter['post_title'];
+				$vars['post_content']              = sprintf(
 					( $chapter_printf_changed ? $chapter_printf_changed : $chapter_printf ),
 					$subclass,
 					$slug,
@@ -466,7 +466,7 @@ class Imscc11 extends Epub3 {
 	 */
 	protected function createBackMatter( $book_contents, $metadata ) {
 
-		$back_matter_printf = '<div class="back-matter %s" id="%s">';
+		$back_matter_printf  = '<div class="back-matter %s" id="%s">';
 		$back_matter_printf .= '<div class="ugc back-matter-ugc">%s</div>%s';
 		$back_matter_printf .= '</div>';
 
@@ -493,7 +493,7 @@ class Imscc11 extends Epub3 {
 			$append_back_matter_content = $this->kneadHtml( apply_filters( 'pb_append_back_matter_content', '', $back_matter_id ), 'back-matter', $i );
 			$short_title                = trim( get_post_meta( $back_matter_id, 'pb_short_title', true ) );
 			$subtitle                   = trim( get_post_meta( $back_matter_id, 'pb_subtitle', true ) );
-			$author                     = trim( get_post_meta( $back_matter_id, 'pb_section_author', true ) );
+			$author                     = trim( get_post_meta( $back_matter_id, 'pb_authors', true ) );
 
 			if ( Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
 				$sections = Pressbooks\Book::getSubsections( $back_matter_id );
@@ -520,8 +520,8 @@ class Imscc11 extends Epub3 {
 				$append_back_matter_content .= $this->kneadHtml( $this->tidy( $section_license ), 'back-matter', $i );
 			}
 
-			$vars['post_title']   = $back_matter['post_title'];
-			$vars['post_content'] = sprintf(
+			$vars['post_title']                    = $back_matter['post_title'];
+			$vars['post_content']                  = sprintf(
 				$back_matter_printf,
 				$subclass,
 				$slug,
