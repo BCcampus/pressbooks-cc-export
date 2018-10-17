@@ -52,6 +52,7 @@ It is a set of open standards developed by an industry consortium intended to en
 
 = 0.2.5 2018/10/15 =
 * compatibility with PB 5.5.3
+* enforce coding standards
 
 = 0.2.4 2018/08/09 =
 * compatibility with PB 5.4.5
