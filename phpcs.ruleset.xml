@@ -2,13 +2,14 @@
 <ruleset>
 	<!-- Scan only PHP files -->
 	<arg name="extensions" value="php"/>
-
 	<!-- Show colors in console -->
 	<arg value="-colors"/>
-
 	<!-- Show progress -->
 	<arg value="p"/>
-
+	<!-- Be quiet -->
+	<arg value="q"/>
+	<!-- Include source codes in the report -->
+	<arg value="s"/>
 	<!-- Use HM Coding Standards -->
 	<rule ref="vendor/humanmade/coding-standards">
 		<!-- Disable all ESLint checks -->
@@ -22,7 +23,6 @@
 		<!-- Disable LayoutOrder until humanmade/coding-standards#5 is fixed -->
 		<exclude name="HM.Layout.Order.WrongOrder"/>
 	</rule>
-
 	<!-- Re-enable rules we agree with -->
 	<rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
 
@@ -30,12 +30,14 @@
 	<rule ref="PSR1.Files.SideEffects">
 		<exclude-pattern>/bin/*</exclude-pattern>
 	</rule>
-
 	<!-- Disable Namespaced Functions for cron scripts -->
 	<rule ref="HM.Functions.NamespacedFunctions">
 		<exclude-pattern>/bin/*</exclude-pattern>
 	</rule>
-
+	<!-- Disable WhiteSpace Rule for xml file -->
+	<rule ref="WordPress.WhiteSpace.PrecisionAlignment.Found">
+		<exclude-pattern>/inc/export/cc/templates/manifest.php</exclude-pattern>
+	</rule>
+	<!-- Disable all rules for these files: -->
 	<exclude-pattern>/vendor/*</exclude-pattern>
-
 </ruleset>

@@ -21,26 +21,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
-/*
-|--------------------------------------------------------------------------
-| Constants
-|--------------------------------------------------------------------------
-|
-|
-|
-|
-*/
-if ( ! defined( 'PCE_PLUGIN_DIR' ) ) {
-	define( 'PCE_PLUGIN_DIR', __DIR__ . '/' );
-}
-
-// Must have trailing slash!
-if ( ! defined( 'PB_PLUGIN_DIR' ) ) {
-	define( 'PB_PLUGIN_DIR', WP_PLUGIN_DIR . '/pressbooks/' );
-}
-
-
 /*
 |--------------------------------------------------------------------------
 | Minimum requirements before either PB or PCE objects are instantiated
@@ -99,10 +79,10 @@ add_action(
 |
 |
 */
-require PCE_PLUGIN_DIR . 'autoloader.php';
+require __DIR__ . '/autoloader.php';
 
 // Load Composer Dependencies
-$composer = PCE_PLUGIN_DIR . 'vendor/autoload.php';
+$composer = __DIR__ . '/vendor/autoload.php';
 if ( file_exists( $composer ) ) {
 	require_once( $composer );
 }

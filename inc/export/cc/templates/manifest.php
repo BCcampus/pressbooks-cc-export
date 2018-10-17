@@ -20,7 +20,8 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		<lomimscc:lom>
 			<lomimscc:general>
 				<lomimscc:title>
-					<lomimscc:string language="<?php echo $lang; ?>"><?php echo $meta['pb_title']; ?></lomimscc:string>
+					<lomimscc:string
+						language="<?php echo $lang; ?>"><?php echo $meta['pb_title']; ?></lomimscc:string>
 				</lomimscc:title>
 				<lomimscc:description>
 					<lomimscc:string
