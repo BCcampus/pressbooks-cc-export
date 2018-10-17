@@ -7,12 +7,12 @@
  * Author URI:      https://github.com/bdolor
  * Text Domain:     pressbooks-cc-export
  * Domain Path:     /languages
- * Version:         0.2.4
+ * Version:         0.2.5
  * License:         GPL-3.0+
  * Tags: pressbooks, OER, publishing, common cartridge, imscc
  * Network: True
  * Tags: pressbooks, OER, publishing, textbooks
- * Pressbooks tested up to: 5.4.5
+ * Pressbooks tested up to: 5.5.3
  *
  * @package         Pressbooks_Cc_Export
  */
@@ -20,26 +20,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
-
-/*
-|--------------------------------------------------------------------------
-| Constants
-|--------------------------------------------------------------------------
-|
-|
-|
-|
-*/
-if ( ! defined( 'PCE_PLUGIN_DIR' ) ) {
-	define( 'PCE_PLUGIN_DIR', __DIR__ . '/' );
-}
-
-// Must have trailing slash!
-if ( ! defined( 'PB_PLUGIN_DIR' ) ) {
-	define( 'PB_PLUGIN_DIR', WP_PLUGIN_DIR . '/pressbooks/' );
-}
-
 
 /*
 |--------------------------------------------------------------------------
@@ -99,10 +79,10 @@ add_action(
 |
 |
 */
-require PCE_PLUGIN_DIR . 'autoloader.php';
+require __DIR__ . '/autoloader.php';
 
 // Load Composer Dependencies
-$composer = PCE_PLUGIN_DIR . 'vendor/autoload.php';
+$composer = __DIR__ . '/vendor/autoload.php';
 if ( file_exists( $composer ) ) {
 	require_once( $composer );
 }
