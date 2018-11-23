@@ -3,7 +3,7 @@ Contributors: bdolor, aparedes
 Tags: pressbooks, export, common cartridge
 Requires at least: 4.9.8
 Tested up to: 4.9.8
-Stable tag: 0.2.5
+Stable tag: 0.2.6
 Requires PHP: 7.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -49,6 +49,9 @@ It is a set of open standards developed by an industry consortium intended to en
 2. Theme independent icon addition to downloads area on homepage.
 
 == Changelog ==
+
+= 0.2.6 2018/11/22 =
+* compatibility with PB 5.6.0
 
 = 0.2.5 2018/10/15 =
 * compatibility with PB 5.5.3
