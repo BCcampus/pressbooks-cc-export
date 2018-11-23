@@ -7,12 +7,12 @@
  * Author URI:      https://github.com/bdolor
  * Text Domain:     pressbooks-cc-export
  * Domain Path:     /languages
- * Version:         0.2.5
+ * Version:         0.2.6
  * License:         GPL-3.0+
  * Tags: pressbooks, OER, publishing, common cartridge, imscc
  * Network: True
  * Tags: pressbooks, OER, publishing, textbooks
- * Pressbooks tested up to: 5.5.3
+ * Pressbooks tested up to: 5.6.0
  *
  * @package         Pressbooks_Cc_Export
  */
