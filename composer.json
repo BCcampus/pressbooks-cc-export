@@ -2,7 +2,7 @@
   "name": "bccampus/pressbooks-cc-export",
   "description": "Common Cartridge Export file for Pressbooks",
   "type": "wordpress-plugin",
-  "version": "0.2.6",
+  "version": "1.0.0",
   "homepage": "https://github.com/bccampus/pressbooks-cc-export",
   "license": "GPL-3.0+",
   "authors": [
@@ -29,11 +29,11 @@
   },
   "scripts": {
     "test": [
-      "vendor/bin/phpunit --configuration phpunit.xml",
+      "vendor/bin/phpunit --configuration=phpunit.xml",
       "@standards"
     ],
     "standards": [
-      "vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/"
+      "vendor/bin/phpcs --standard=phpcs.ruleset.xml ."
     ]
   }
 }

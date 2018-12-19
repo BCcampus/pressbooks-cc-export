@@ -156,7 +156,7 @@ class Imscc11 extends Epub3 {
 			$subtitle                    = trim( get_post_meta( $front_matter_id, 'pb_subtitle', true ) );
 			$author                      = trim( get_post_meta( $front_matter_id, 'pb_authors', true ) );
 
-			if ( Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
+			if ( Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
 				$sections = Pressbooks\Book::getSubsections( $front_matter_id );
 
 				if ( $sections ) {
@@ -280,7 +280,7 @@ class Imscc11 extends Epub3 {
 				$subtitle               = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
 				$author                 = trim( get_post_meta( $chapter_id, 'pb_authors', true ) );
 
-				if ( Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
+				if ( Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
 					$sections = Pressbooks\Book::getSubsections( $chapter_id );
 
 					if ( $sections ) {
@@ -495,7 +495,7 @@ class Imscc11 extends Epub3 {
 			$subtitle                   = trim( get_post_meta( $back_matter_id, 'pb_subtitle', true ) );
 			$author                     = trim( get_post_meta( $back_matter_id, 'pb_authors', true ) );
 
-			if ( Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
+			if ( Pressbooks\Modules\Export\Export::shouldParseSubsections() === true ) {
 				$sections = Pressbooks\Book::getSubsections( $back_matter_id );
 
 				if ( $sections ) {
