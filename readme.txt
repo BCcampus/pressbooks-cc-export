@@ -2,7 +2,7 @@
 Contributors: bdolor, aparedes
 Tags: pressbooks, export, common cartridge
 Requires at least: 4.9.8
-Tested up to: 5.0.1
+Tested up to: 5.0.2
 Stable tag: 1.0.0
 Requires PHP: 7.1
 License: GPLv3 or later
