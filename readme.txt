@@ -52,7 +52,8 @@ It is a set of open standards developed by an industry consortium intended to en
 
 = 1.0.0 2018/12/19 =
 * backwards incompatible change due to PB function name change
-*
+* min PB version required 5.6.0
+* update dependencies
 
 = 0.2.6 2018/11/22 =
 * compatibility with PB 5.6.0
