@@ -12,7 +12,7 @@
  * @copyright (c) 2012-2017, Brad Payne
  */
 
-namespace BCcampus\Export\CC;
+namespace BCcampusCC\Export\CC;
 
 use Masterminds\HTML5;
 use Pressbooks;
@@ -37,19 +37,55 @@ class Imscc11 extends Epub3 {
 	protected $dir = __DIR__;
 
 	/**
+	 * @var string
+	 */
+	protected $extraCss = null;
+
+	/**
+	 * @var string
+	 */
+	protected $generatorPrefix;
+
+	/**
+	 * @var string
+	 */
+	protected $errorLog = '';
+
+	/**
+	 * Imscc11 constructor.
+	 *
+	 * @param array $args
+	 */
+	function __construct( array $args ) {
+		parent::__construct( $args );
+		$this->generatorPrefix = __( 'Common Cartridge 1.1: ', 'pressbooks-cc-export' );
+
+	}
+
+	/**
 	 * Mandatory convert method, create $this->outputPath
 	 *
 	 * @return bool
 	 */
 	function convert() {
-		// Sanity check
+		return parent::convert();
+	}
 
+	/**
+	 * @return \Generator
+	 */
+	function convertGenerator(): \Generator {
+		// Sanity check
 		if ( empty( $this->tmpDir ) || ! is_dir( $this->tmpDir ) ) {
 			$this->logError( '$this->tmpDir must be set before calling convert().' );
 
 			return false;
 		}
+
+		yield 1 => $this->generatorPrefix . __( 'Initializing', 'pressbooks-cc-export' );
+
 		// Convert
+		yield 2 => $this->generatorPrefix . __( 'Preparing book contents', 'pressbooks-cc-export' );
 
 		$metadata      = PressBooks\Book::getBookInformation();
 		$book_contents = $this->preProcessBookContents( Pressbooks\Book::getBookContents() );
@@ -60,9 +96,9 @@ class Imscc11 extends Epub3 {
 		}
 
 		try {
-
+			yield 5 => $this->generatorPrefix . __( 'Creating container', 'pressbooks-cc-export' );
 			$this->createContainer();
-			$this->createWebContent( $book_contents, $metadata );
+			yield from $this->createWebContentGenerator( $book_contents, $metadata );
 			$this->createManifest( $metadata );
 
 		} catch ( \Exception $e ) {
@@ -71,28 +107,59 @@ class Imscc11 extends Epub3 {
 			return false;
 		}
 
+		yield 75 => $this->generatorPrefix . __( 'Saving file to exports folder', 'pressbooks-cc-export' );
 		$filename = $this->timestampedFileName( $this->suffix );
 		if ( ! $this->zipImscc( $filename ) ) {
 			return false;
 		}
 		$this->outputPath = $filename;
+		yield 80 => $this->generatorPrefix . __( 'Export successful', 'pressbooks-cc-export' );
 
-		return true;
+	}
+
+	/**
+	 * @return \Generator
+	 */
+	function validateGenerator(): \Generator {
+		yield 80 => $this->generatorPrefix . __( 'Validating file', 'pressbooks-cc-export' );
+		$file = $this->tmpDir . '/imsmanifest.xml';
+
+		$use_errors = libxml_use_internal_errors( true );
+		$xml        = simplexml_load_file( $file );
+		if ( false === $xml ) {
+			$this->errorLog .= "### {$file} ### \n";
+			foreach ( libxml_get_errors() as $error ) {
+				$this->errorLog .= $error->message . "\n";
+			}
+		}
+		libxml_clear_errors();
+		libxml_use_internal_errors( $use_errors );
+		if ( ! empty( $this->errorLog ) ) {
+			$this->logError( $this->errorLog );
+
+			return false;
+		}
+
+		yield 90 => $this->generatorPrefix . __( 'Validation successful', 'pressbooks-cc-export' );
+		yield 100 => $this->generatorPrefix . __( 'Finishing up', 'pressbooks-cc-export' );
 	}
 
 	/**
 	 * @param $book_contents
 	 * @param $metadata
 	 *
+	 * @return \Generator
 	 * @throws \Exception
 	 */
-	protected function createWebContent( $book_contents, $metadata ) {
+	protected function createWebContentGenerator( $book_contents, $metadata ) : \Generator {
 
 		// Reset manifest
 		$this->manifest = [];
-
+		yield 30 => $this->generatorPrefix . __( 'Exporting Front Matter', 'pressbooks-cc-export' );
 		$this->createFrontMatter( $book_contents, $metadata );
+		yield 40 => $this->generatorPrefix . __( 'Exporting Parts and Chapters', 'pressbooks-cc-export' );
 		$this->createPartsAndChapters( $book_contents, $metadata );
+		yield 50 => $this->generatorPrefix . __( 'Exporting Back Matter', 'pressbooks-cc-export' );
 		$this->createBackMatter( $book_contents, $metadata );
 
 	}
@@ -647,14 +714,7 @@ class Imscc11 extends Epub3 {
 	 * @return bool
 	 */
 	function validate() {
-		if ( ! simplexml_load_file( $this->tmpDir . '/imsmanifest.xml' ) ) {
-
-			$this->logError( 'IMS Manifest is not well formed XML.' );
-
-			return false;
-		}
-
-		return true;
+		parent::validate();
 	}
 
 	/**
@@ -670,7 +730,7 @@ class Imscc11 extends Epub3 {
 	protected function createManifest( $metadata ) {
 
 		if ( empty( $this->manifest ) ) {
-			throw new \Exception( '$this->manifest cannot be empty. Did you forget to call $this->createWebContent() ?' );
+			throw new \Exception( '$this->manifest cannot be empty. Did you forget to call $this->createWebContentGenerator() ?' );
 		}
 
 		// Vars

@@ -3,16 +3,16 @@
  * Plugin Name:     CC Export for Pressbooks
  * Plugin URI:      https://github.com/bccampus/pressbooks-cc-export
  * Description:     Common Cartridge Export for Pressbooks
- * Author:          Brad Payne
- * Author URI:      https://github.com/bdolor
+ * Author:          Brad Payne, Alex Paredes
+ * Author URI:      https://github.com/BCcampus
  * Text Domain:     pressbooks-cc-export
  * Domain Path:     /languages
- * Version:         1.0.0
+ * Version:         1.0.1
  * License:         GPL-3.0+
  * Tags: pressbooks, OER, publishing, common cartridge, imscc
  * Network: True
  * Tags: pressbooks, OER, publishing, textbooks
- * Pressbooks tested up to: 5.6.3
+ * Pressbooks tested up to: 5.7.0
  *
  * @package         Pressbooks_Cc_Export
  */
@@ -66,6 +66,7 @@ add_action(
 
 			return;
 		}
+
 	}
 );
 
@@ -79,7 +80,7 @@ add_action(
 |
 |
 */
-require __DIR__ . '/autoloader.php';
+\HM\Autoloader\register_class_path( 'BCcampusCC', __DIR__ . '/inc' );
 
 // Load Composer Dependencies
 $composer = __DIR__ . '/vendor/autoload.php';
@@ -107,7 +108,7 @@ add_filter(
 add_filter(
 	'pb_active_export_modules', function ( $modules ) {
 		if ( isset( $_POST['export_formats']['imscc11'] ) ) { // @codingStandardsIgnoreLine
-			$modules[] = '\BCcampus\Export\CC\Imscc11';
+			$modules[] = '\BCcampusCC\Export\CC\Imscc11';
 		}
 
 		return $modules;

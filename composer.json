@@ -34,6 +34,9 @@
     ],
     "standards": [
       "vendor/bin/phpcs --standard=phpcs.ruleset.xml ."
+    ],
+    "standards-beautify": [
+      "vendor/bin/phpcbf --standard=phpcs.ruleset.xml ."
     ]
   }
 }

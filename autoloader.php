@@ -11,23 +11,20 @@
  */
 \spl_autoload_register(
 	function ( $class ) {
-
 		// project-specific namespace prefix
-		$prefix = 'BCcampus';
+		$prefix = 'BCcampusCC';
+		$len    = strlen( $prefix );
 
-		// base directory for the namespace prefix
-		$base_dir = __DIR__ . '/inc';
-
-		// does the class use the namespace prefix?
-		$len = \strlen( $prefix );
-
-		if ( \strncmp( $prefix, $class, $len ) !== 0 ) {
+		if ( strncmp( $prefix, $class, $len ) !== 0 ) {
 			// no, move to the next registered autoloader
 			return;
 		}
 
+		// base directory for the namespace prefix
+		$base_dir = __DIR__ . '/inc';
+
 		// get the relative class name
-		$relative_class = \substr( $class, $len );
+		$relative_class = substr( $class, $len );
 		$last_ns_pos    = strripos( $relative_class, '\\' );
 
 		if ( false !== $last_ns_pos ) {
@@ -40,7 +37,7 @@
 		$path = $base_dir . strtolower( $file );
 
 		// if the file exists, require it
-		if ( \file_exists( $path ) ) {
+		if ( file_exists( $path ) ) {
 			require $path;
 		}
 	}
