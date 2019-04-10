@@ -7,11 +7,10 @@
  * Author URI:      https://github.com/BCcampus
  * Text Domain:     pressbooks-cc-export
  * Domain Path:     /languages
- * Version:         1.0.1
+ * Version:         1.1.0
  * License:         GPL-3.0+
  * Tags: pressbooks, OER, publishing, common cartridge, imscc
  * Network: True
- * Tags: pressbooks, OER, publishing, textbooks
  * Pressbooks tested up to: 5.7.0
  *
  * @package         Pressbooks_Cc_Export
