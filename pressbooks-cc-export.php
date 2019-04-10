@@ -69,7 +69,6 @@ add_action(
 	}
 );
 
-
 /*
 |--------------------------------------------------------------------------
 | autoload classes
@@ -79,7 +78,9 @@ add_action(
 |
 |
 */
-\HM\Autoloader\register_class_path( 'BCcampusCC', __DIR__ . '/inc' );
+if ( function_exists( '\HM\Autoloader\register_class_path' ) ) {
+	\HM\Autoloader\register_class_path( 'BCcampusCC', __DIR__ . '/inc' );
+}
 
 // Load Composer Dependencies
 $composer = __DIR__ . '/vendor/autoload.php';
