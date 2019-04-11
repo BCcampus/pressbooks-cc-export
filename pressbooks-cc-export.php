@@ -3,11 +3,11 @@
  * Plugin Name:     CC Export for Pressbooks
  * Plugin URI:      https://github.com/bccampus/pressbooks-cc-export
  * Description:     Common Cartridge Export for Pressbooks
- * Author:          Brad Payne, Alex Paredes
+ * Author:          BCcampus
  * Author URI:      https://github.com/BCcampus
  * Text Domain:     pressbooks-cc-export
  * Domain Path:     /languages
- * Version:         1.1.0
+ * Version:         1.1.1
  * License:         GPL-3.0+
  * Tags: pressbooks, OER, publishing, common cartridge, imscc
  * Network: True
